@@ -1,6 +1,6 @@
 <template>
   <div v-bind:id="questionData.qid" class="multi-select-question">
-    <h2>{{questionData.questionText}}</h2>
+    <h2>{{ questionData.questionText }}</h2>
     <div class="multi-select-choices">
       <div
         v-for="choice in choices"
@@ -14,7 +14,7 @@
           :value="choice.cid"
           v-model="selectedChoices"
         />
-        <label :for="questionData.qid + choice.text">{{choice.text}}</label>
+        <label :for="questionData.qid + choice.text">{{ choice.text }}</label>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
   props: ["questionData"],
   data: function() {
     return {
-      selectedChoices: []
+      selectedChoices: [],
     };
   },
   computed: {
@@ -42,11 +42,12 @@ export default {
         [choices[i], choices[j]] = [choices[j], choices[i]];
       }
       return choices;
-    }
+    },
   },
   watch: {
     selectedChoices: function() {
       let feedback = "";
+      let isCorrect = true;
       if (
         this.questionData.correctChoices.sort().join(",") ==
         this.selectedChoices
@@ -55,15 +56,18 @@ export default {
           .join(",")
       ) {
         feedback = this.questionData.correctFeedback;
+        isCorrect = true;
       } else {
         feedback = this.questionData.incorrectFeedback;
+        isCorrect = false;
       }
       this.$emit("feedback", {
         qid: this.questionData.qid,
-        feedback
+        isCorrect,
+        text: feedback,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
