@@ -1,6 +1,6 @@
 # Learnersourced Quiz
 
-Live page: [TBD](https://es2mac.github.io/TOLLearnerSourcedQuiz/dist/)
+Live page: [learnersourced-quiz](https://es2mac.github.io/TOLLearnerSourcedQuiz/dist/)
 
 This is Project 3 for the 2020S Tools for Online Learning. Designed and implemented by Ember, Carol and Paul.
 
