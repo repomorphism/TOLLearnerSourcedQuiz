@@ -26,7 +26,7 @@ export default {
   props: ["questionData"],
   data: function() {
     return {
-      selectedChoice: "",
+      selectedChoice: ""
     };
   },
   watch: {
@@ -43,10 +43,10 @@ export default {
       this.$emit("feedback", {
         qid: this.questionData.qid,
         isCorrect,
-        text: feedback,
+        text: feedback
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -67,6 +67,10 @@ export default {
   display: flex;
   margin: 8px 0px 8px 0px;
   align-items: center;
+}
+
+.multiple-choice-choice > label {
+  text-align: left;
 }
 
 /* radio button */

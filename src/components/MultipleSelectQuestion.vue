@@ -26,7 +26,7 @@ export default {
   props: ["questionData"],
   data: function() {
     return {
-      selectedChoices: [],
+      selectedChoices: []
     };
   },
   computed: {
@@ -42,7 +42,7 @@ export default {
         [choices[i], choices[j]] = [choices[j], choices[i]];
       }
       return choices;
-    },
+    }
   },
   watch: {
     selectedChoices: function() {
@@ -64,10 +64,10 @@ export default {
       this.$emit("feedback", {
         qid: this.questionData.qid,
         isCorrect,
-        text: feedback,
+        text: feedback
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -88,6 +88,10 @@ export default {
   display: flex;
   margin: 8px 0px 8px 0px;
   align-items: center;
+}
+
+.multi-select-choice > label {
+  text-align: left;
 }
 
 /* checkbox */

@@ -104,6 +104,10 @@ section {
   align-items: center;
 }
 
+section > div {
+  max-width: 640px;
+}
+
 #tester-message {
   display: flex;
   justify-content: center;
