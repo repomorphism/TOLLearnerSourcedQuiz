@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>{{ currentQuestionData.qid }}</h1>
+    <h1>Question {{ currentQuestionData.qid }}</h1>
     <section>
       <MultipleChoiceQuestion
         v-if="currentQuestionData.type == 'multiple-choice'"
@@ -15,16 +15,13 @@
       <p
         v-if="submitted"
         v-bind:style="{ color: feedback.isCorrect ? 'green' : 'red' }"
-      >
-        {{ feedback.text }}
-      </p>
+      >{{ feedback.text }}</p>
       <button v-if="!submitted" v-on:click="onSubmit">Submit</button>
+      <button v-if="submitted" v-on:click="onChangeVariant">Try a different variant</button>
       <button
         v-if="submitted && currentQuestion < questionsData.length - 1"
         v-on:click="onProceed"
-      >
-        Continue
-      </button>
+      >Continue</button>
     </section>
   </div>
 </template>
@@ -37,24 +34,28 @@ export default {
   name: "App",
   components: {
     MultipleChoiceQuestion,
-    MultipleSelectQuestion,
+    MultipleSelectQuestion
   },
   data: function() {
     return {
       currentQuestion: 0,
+      questionVariant: 0,
       feedback: { text: "Please select.", isCorrect: false },
-      submitted: false,
+      submitted: false
     };
   },
   computed: {
     currentQuestionData: function() {
-      return this.questionsData[this.currentQuestion];
+      return this.questionsData[this.currentQuestion][this.questionVariant];
+    },
+    currentVariantsCount: function() {
+      return this.questionsData[this.currentQuestion].length;
     },
     questionsData: function() {
       // This is loaded by the separate data file
       // eslint-disable-next-line
       return QUESTIONS_DATA;
-    },
+    }
   },
   methods: {
     onProceed: function() {
@@ -64,14 +65,20 @@ export default {
         this.feedback = { text: "Please select.", isCorrect: false };
       }
     },
+    onChangeVariant: function() {
+      this.questionVariant =
+        (this.questionVariant + 1) % this.currentVariantsCount;
+      this.submitted = false;
+      this.feedback = { text: "Please select.", isCorrect: false };
+    },
     onSubmit: function() {
       this.submitted = true;
     },
     onFeedback: function(data) {
       this.submitted = false;
       this.feedback = data;
-    },
-  },
+    }
+  }
 };
 </script>
 
